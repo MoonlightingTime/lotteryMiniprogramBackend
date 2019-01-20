@@ -1,0 +1,28 @@
+<template name="sweepstakesInfo">
+  <view class="weui-form-preview">
+    <view class="weui-form-preview__hd">
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">奖品价值</view>
+        <view class="weui-form-preview__value_in-hd">{{prizeValue}}</view>
+      </view>
+    </view>
+    <view class="weui-form-preview__bd">
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">奖品名称</view>
+        <view class="weui-form-preview__value">{{prizeName}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">活动名称</view>
+        <view class="weui-form-preview__value">{{swpstkName}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">开奖时间</view>
+        <view class="weui-form-preview__value">{{lotteryTime}}</view>
+      </view>
+    </view>
+    <image src="{{imagePath}}"></image>
+    <view class="weui-form-preview__ft">
+      <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary participate_btn" hover-class="weui-form-preview__btn_active participate_btn_hover">参与抽奖</navigator>
+    </view>
+  </view>
+</template>

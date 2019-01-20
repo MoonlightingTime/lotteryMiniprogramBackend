@@ -1,0 +1,9 @@
+.weui-form-preview{
+    margin-bottom: 25px;
+}
+.participate_btn{
+  color: #112238;
+}
+.participate_btn_hover{
+  background-color: #d8e0c9;
+}

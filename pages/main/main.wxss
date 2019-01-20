@@ -1,0 +1,2 @@
+/* pages/main/main.wxss */
+@import "./template/sweepstakesInfo.wxss";

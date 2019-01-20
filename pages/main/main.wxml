@@ -1,0 +1,13 @@
+<!--pages/main/main.wxml-->
+<!-- <text>pages/main/main.wxml</text> -->
+<import src="./template/sweepstakesInfo.wxml" />
+
+<!-- <block wx:for="{{sweepstakes}}" wx:key="id">
+  <view bindtap='sweepstakesTap' id='sweepstakes_{{item.id}}'>
+    {{item.name}}
+  </view>
+</block> -->
+
+<block wx:for="{{sweepstakes}}" wx:key="id">
+  <template is="sweepstakesInfo" data="{{...item}}" />
+</block>
