@@ -1,5 +1,4 @@
 <!--pages/main/main.wxml-->
-<!-- <text>pages/main/main.wxml</text> -->
 <import src="./template/sweepstakesInfo.wxml" />
 
 <!-- <block wx:for="{{sweepstakes}}" wx:key="id">
@@ -8,6 +7,6 @@
   </view>
 </block> -->
 
-<block wx:for="{{sweepstakes}}" wx:key="id">
+<block wx:for="{{sweepstakes}}" wx:key="swpstkId">
   <template is="sweepstakesInfo" data="{{...item}}" />
 </block>

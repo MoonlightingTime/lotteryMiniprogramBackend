@@ -1,11 +1,27 @@
 // pages/result/result.js
+
+
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    participatedSweepstakes: [
+      {
+        swpstkName: "第一次抽奖",
+        swpstkState: "notTime"
+      },
+      {
+        swpstkName: "第二次抽奖",
+        swpstkState: "hasWon"
+      },
+      {
+        swpstkName: "第三次抽奖",
+        swpstkState: "notWon"
+      }
+    ]
   },
 
   /**

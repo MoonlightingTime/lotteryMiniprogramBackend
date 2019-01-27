@@ -1,2 +1,15 @@
 <!--pages/result/result.wxml-->
-<text>pages/result/result.wxml</text>
+<import src="./template/sweepstakesResult.wxml" />
+
+<view class="weui-panel">
+  <view class="weui-panel__hd">我参与的抽奖</view>
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_small-appmsg">
+        <view class="weui-cells weui-cells_in-small-appmsg">
+        <block wx:for="{{participatedSweepstakes}}">
+          <template is="sweepstakesResult" data="{{...item}}"></template>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

@@ -17,12 +17,20 @@
       </view>
       <view class="weui-form-preview__item">
         <view class="weui-form-preview__label">开奖时间</view>
-        <view class="weui-form-preview__value">{{lotteryTime}}</view>
+        <text class="weui-form-preview__value">{{lotteryTime}}</text>
       </view>
     </view>
-    <image src="{{imagePath}}"></image>
+    <view class="merchandise-image">
+      <block wx:if="{{loadImage}}">
+        <view class="weui-loadmore">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">图片正在加载</view>
+        </view>
+      </block>
+      <block wx:else><image src="{{demoImage}}" mode="aspectFit"></image></block>
+    </view>
     <view class="weui-form-preview__ft">
-      <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary participate_btn" hover-class="weui-form-preview__btn_active participate_btn_hover">参与抽奖</navigator>
+      <navigator url="/pages/main/participate?swpstkId={{swpstkId}}" class="weui-form-preview__btn weui-form-preview__btn_primary participate_btn" hover-class="weui-form-preview__btn_active participate_btn_hover">参与抽奖</navigator>
     </view>
   </view>
 </template>
