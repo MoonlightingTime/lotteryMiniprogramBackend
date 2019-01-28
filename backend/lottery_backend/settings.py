@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-ao96=umzm17s3nuyb_3q*%w^srcu&@2w(vtoc0^h(dxhpjq&m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '39.98.195.88', 'miniprogram.huaweixiaozhu.com']
 
