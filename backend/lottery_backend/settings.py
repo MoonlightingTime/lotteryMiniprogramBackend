@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-ao96=umzm17s3nuyb_3q*%w^srcu&@2w(vtoc0^h(dxhpjq&m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '39.98.195.88', 'miniprogram.huaweixiaozhu.com']
 
 
 # Application definition
@@ -128,6 +128,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# deploying static files
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 parent_dir = os.path.abspath(os.path.dirname(__file__) + '/..')
 MEDIA_ROOT = os.path.join(parent_dir, "images/")
