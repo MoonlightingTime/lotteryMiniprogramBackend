@@ -8,9 +8,9 @@ var viewState = Object.freeze({
 Page({
   data: {
     // 向后端请求所需数据
-    backend: "",
-    swpstkId: -1,
-    openid: "",
+    backend: undefined,
+    swpstkId: undefined,
+    openid: undefined,
     phoneNumber: undefined,
     // 前端显示所需状态数据
     viewState: viewState.waitRequestCheck
@@ -81,7 +81,9 @@ Page({
 
   checkParticipatedState: function () {
     var self = this;
-    this.data.viewState = viewState.waitRequestCheck;
+    this.setData({
+      viewState: viewState.waitRequestCheck
+    });
     wx.request({
       url: `${self.data.backend}/participate/check_participated`,
       data: {

@@ -23,7 +23,7 @@
             </view>
             <view class="weui-cell__bd">
                 <input class="weui-input" bindinput="bindPhoneNumber"
-                       placeholder="{{phonNumber ? phoneNumber : '请输入手机号'}}" />
+                       placeholder="{{phoneNumber?phoneNumber:'请输入手机号'}}" />
             </view>
         </view>
     </view>

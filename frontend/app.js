@@ -53,7 +53,7 @@ App({
     }
   },
   globalData: {
-    userInfo: null,
+    userInfo: {},
     backend: "http://localhost:8000"
   }
 });
