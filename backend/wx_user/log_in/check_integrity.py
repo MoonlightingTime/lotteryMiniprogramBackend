@@ -1,5 +1,4 @@
 import hashlib
-from lottery_backend.settings import DEBUG
 
 def check_integrity(raw_data, session_key, signature):
     """
@@ -10,8 +9,6 @@ def check_integrity(raw_data, session_key, signature):
     :param signature: 前端传输的签名
     :return:
     """
-    if DEBUG:
-        print(raw_data, session_key, signature)
     plain_text = (raw_data + session_key).encode()
     sha = hashlib.sha1(plain_text)
     mySignature = sha.hexdigest()
