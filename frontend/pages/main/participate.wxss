@@ -1,15 +1,1 @@
 /* pages/main/participate.wxss */
-icon{
-    margin-right: 13rpx;
-}
-.icon-box{
-    margin-top: 25rpx;
-    margin-bottom: 25rpx;
-    padding-left: 40rpx;
-    padding-right: 40rpx;
-    display: flex;
-    align-items: center;
-}
-.icon-box__ctn{
-    flex-shrink: 100;
-}

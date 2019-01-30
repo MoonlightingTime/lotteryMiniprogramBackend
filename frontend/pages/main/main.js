@@ -1,4 +1,9 @@
 // pages/main/main.js
+
+var viewState = Object.freeze({
+  "waitRequest": 0, "successRequest": 1, "failRequest": 2
+});
+
 Page({
 
   /**
@@ -6,7 +11,8 @@ Page({
    */
   data: {
     sweepstakes: [],
-    backend: ""
+    backend: "",
+    viewState: viewState.waitRequest
   },
 
   /**
@@ -72,14 +78,18 @@ Page({
     var self = this;
     wx.request({
       url: this.data.backend + '/sweepstake/query_swpstk/',
-      success: res => { self.infoSuccessCallback(res); }
+      success: self.infoSuccessCallback,
+      fail: self.infoFailCallBack
     });
   },
 
   infoSuccessCallback: function (res) {
     console.log(res);
-    var initlen = this.data.sweepstakes.length;
     var self = this;
+    self.setData({
+      viewState: viewState.successRequest,
+      sweepstakes: []
+    });
     res.data.data.forEach(function (item, index) {
       item.loadImage = true;
       var lotteryDataTime = new Date(item.lotteryTime);
@@ -87,12 +97,20 @@ Page({
 
       console.log(item);
       self.data.sweepstakes.push(item);
-      var cnmwx = `sweepstakes[${index + initlen}]`;
+      var cnmwx = `sweepstakes[${index}]`;
       self.setData({[cnmwx]: item});
 
       self.loadSwpStkImage(index + initlen);
     });
     // this.setData({sweepstakes: this.data.sweepstakes});
+  },
+
+  infoFailCallBack: function (res) {
+    console.log(res);
+    this.setData({
+      viewState: viewState.failRequest,
+      errMsg: res.errMsg
+    })
   },
   
   loadSwpStkImage: function (num) {
@@ -125,25 +143,4 @@ Page({
   participateInCallBack: function (res) {
     console.log(res);
   }
-  // sweepstakesTap: function(event) {
-  //   console.log(event)
-  //   var num=event.target.id.replace(new RegExp('^'+'sweepstakes_'), '');
-  //   var changer = this.data["sweepstakes"]
-  //
-  //   var regex = new RegExp(' 还没开始$')
-  //   if (changer[num]["name"].match(regex)==null){
-  //     changer[num]["name"] += " 还没开始"
-  //   }else{
-  //     changer[num]["name"] = changer[num]["name"].replace(regex, '')
-  //   }
-  //   this.setData({
-  //     sweepstakes: changer
-  //   })
-  // }
-    // var change_key = `sweepstakes[${num}].name`
-    // var change_value = `${this.data.sweepstakes[num]["name"]} 还没开始`
-    // console.log(change_key, change_value)
-    // this.setData({
-    //   change_key: change_value
-    // })
 })

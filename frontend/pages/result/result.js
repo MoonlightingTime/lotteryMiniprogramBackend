@@ -1,7 +1,8 @@
 // pages/result/result.js
 
 var viewState = Object.freeze({
-  "waitRequest": 0, "successRequest": 1, "refreshRequest": 2
+  "waitRequest": 0, "successRequest": 1,
+  "refreshRequest": 2, "failRequest": 3
 });
 
 Page({
@@ -21,7 +22,7 @@ Page({
     var app = getApp();
     this.data.backend = app.globalData.backend;
     this.data.openid = app.globalData.userInfo.openid;
-    this.queryResult();
+    this.tryQuery();
   },
 
   /**
@@ -73,24 +74,36 @@ Page({
 
   },
 
+  tryQuery: function (tryTimes = 0) {
+    var self = this;
+    if (self.data.openid !== undefined) {this.queryResult(); return true;}
+    ++tryTimes < 6 ? (function () {
+      console.log(`Openid is undefine, waiting ${tryTimes} second`);
+      setTimeout(function () {
+        var app = getApp();
+        app.globalData.userInfo.openid === undefined || (function (openid) {
+            self.setData({openid: openid});
+          })(app.globalData.userInfo.openid);
+        self.tryQuery(tryTimes);
+      }, 1000)})() : self.setData({
+        viewState: viewState.failRequest,
+        errMsg: "未得到个人信息"
+      });
+  },
+
   queryResult: function () {
     var self = this;
-    if (self.data.openid == undefined) {
-      var app = getApp();
-      self.data.openid = app.globalData.userInfo.openid;
-      setTimeout(self.queryResult, 500);
-    } else {
-      wx.request({
-        url: `${self.data.backend}/participate/query_participated`,
-        data: {
-          openid: self.data.openid
-        },
-        success: self.queryCallBack
-      })
-    }
+    wx.request({
+      url: `${self.data.backend}/participate/query_participated`,
+      data: {
+        openid: self.data.openid
+      },
+      success: self.querySuccessCallBack,
+      fail: self.queryFailCallBack
+    })
   },
   
-  queryCallBack: function (res) {
+  querySuccessCallBack: function (res) {
     console.log(res);
     var self = this;
     this.setData({
@@ -112,7 +125,14 @@ Page({
         })
       })
     }
+  },
 
+  queryFailCallBack: function (res) {
+    console.log(res);
+    this.setData({
+      viewState: viewState.failRequest,
+      errMsg: res.errMsg
+    })
   },
 
   refreshContent: function () {

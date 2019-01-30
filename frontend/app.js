@@ -7,23 +7,28 @@ App({
     wx.setStorageSync('logs', logs);
 
     // TODO: 获取用户信息
+    this.wxGetInfo();
+  },
+
+  wxGetInfo: function () {
+    var self = this;
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
-            success: res => {
-              console.log(res);
-              this.globalData.userInfo = res.userInfo;
-              // TODO: 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回, 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) this.userInfoReadyCallback(res);
-              this.wxLogin(res)
-            }
+            success: self.wxLogin
           })
         }
       }
     })
   },
+
   wxLogin: function (getResult) {
+    console.log(getResult);
+    this.globalData.userInfo = getResult.userInfo;
+    // TODO: 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回, 所以此处加入 callback 以防止这种情况
+    if (this.userInfoReadyCallback) this.userInfoReadyCallback(getResult);
+
     var self = this;
     // TODO: 用户登录微信，后端获取 openid 作为用户唯一标识
     wx.login({
@@ -38,7 +43,7 @@ App({
               rawData: getResult.rawData,
               signature: getResult.signature,
             },
-            success: res => { self.loginCallBack(res); }
+            success: self.loginCallBack
           })
         } else {
           console.log('登录失败！' + res.errMsg)
@@ -46,14 +51,19 @@ App({
       }
     })
   },
+
   loginCallBack: function (res) {
     console.log(res);
     if (res.data.code === 0) {
       this.globalData.userInfo.openid = res.data.data.openid;
+    } else if (res.data.code === 403){
+      console.log(`${res.data.msg}. Retry`);
+      this.wxGetInfo();
     }
   },
+
   globalData: {
     userInfo: {},
-    backend: "http://localhost:8000"
+    backend: "https://miniprogram.huaweixiaozhu.com"
   }
 });

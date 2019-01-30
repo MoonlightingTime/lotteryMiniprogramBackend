@@ -8,7 +8,7 @@
 </block>
 <block wx:elif="{{viewState === 1}}">
     <view class="icon-box">
-        <icon type="info" size="93"></icon>
+        <icon type="info" size="80"></icon>
         <view class="icon-box__ctn">
             <view class="icon-box__title">提示</view>
             <view class="icon-box__desc">您已经参与过此次抽奖</view>
@@ -40,7 +40,7 @@
 </block>
 <block wx:elif="{{viewState === 3}}">
     <view class="icon-box">
-        <icon type="warn" size="93"></icon>
+        <icon type="warn" size="80"></icon>
         <view class="icon-box__ctn">
             <view class="icon-box__title">网络请求错误</view>
             <view class="icon-box__desc">{{errorMsg}}</view>
@@ -49,7 +49,7 @@
 </block>
 <block wx:if="{{viewState === 5}}">
     <view class="icon-box">
-        <icon type="success" size="93"></icon>
+        <icon type="success" size="80"></icon>
         <view class="icon-box__ctn">
             <view class="icon-box__title">成功</view>
             <view class="icon-box__desc">您已成功参与此次抽奖</view>

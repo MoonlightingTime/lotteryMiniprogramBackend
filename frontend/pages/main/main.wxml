@@ -7,6 +7,34 @@
   </view>
 </block> -->
 
-<block wx:for="{{sweepstakes}}" wx:key="swpstkId">
-  <template is="sweepstakesInfo" data="{{...item}}" />
+<block wx:if="{{viewState === 0}}">
+  <view class="weui-loadmore">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在查询所有抽奖信息</view>
+  </view>
+</block>
+<block wx:elif="{{viewState === 1}}">
+  <block wx:if="{{sweepstakes.length === 0}}">
+    <view class="icon-box">
+      <icon type="waiting" size="80"></icon>
+      <view class="icon-box__ctn">
+        <view class="icon-box__title">空空如也</view>
+        <view class="icon-box__desc">还没有可以参加的抽奖</view>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <block wx:for="{{sweepstakes}}" wx:key="swpstkId">
+      <template is="sweepstakesInfo" data="{{...item}}" />
+    </block>
+  </block>
+</block>
+<block wx:elif="{{viewState === 2}}">
+  <view class="icon-box">
+    <icon type="warn" size="80"></icon>
+    <view class="icon-box__ctn">
+      <view class="icon-box__title">请求错误</view>
+      <view class="icon-box__desc">{{errMsg}}</view>
+    </view>
+  </view>
 </block>
