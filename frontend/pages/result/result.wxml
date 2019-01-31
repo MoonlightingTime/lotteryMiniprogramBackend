@@ -29,16 +29,16 @@
           </view>
         </view>
       </view>
-      <view class="weui-btn-area">
-        <block wx:if="{{viewState === 1}}">
-          <button class="weui-btn" bindtap="refreshContent">刷新</button>
-        </block>
-        <block wx:elif="{{viewState === 2}}">
-          <view class="weui-loading"></view>
-          <view class="weui-loadmore__tips">正在刷新</view>
-        </block>
-      </view>
     </block>
+    <view class="weui-btn-area">
+      <block wx:if="{{viewState === 1}}">
+        <button class="weui-btn" bindtap="refreshContent">刷新</button>
+      </block>
+      <block wx:elif="{{viewState === 2}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在刷新</view>
+      </block>
+    </view>
   </block>
   <block wx:elif="{{viewState === 3}}">
     <view class="icon-box">
