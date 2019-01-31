@@ -100,7 +100,7 @@ Page({
       var cnmwx = `sweepstakes[${index}]`;
       self.setData({[cnmwx]: item});
 
-      self.loadSwpStkImage(index + initlen);
+      self.loadSwpStkImage(index);
     });
     // this.setData({sweepstakes: this.data.sweepstakes});
   },
