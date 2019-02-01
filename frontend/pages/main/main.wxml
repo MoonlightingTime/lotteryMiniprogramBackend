@@ -6,6 +6,16 @@
     {{item.name}}
   </view>
 </block> -->
+<view class="containers">
+  <dialog visible="{{dialogVisible}}" title="抽奖规则介绍" opacity="0.4" show-close="{{true}}" show-footer="{{false}}"
+          close-on-click-modal="{{false}}" fullscreen="{{true}}" bindclose="handleCloseDialog">
+    <view style='height:20vh;'>
+      <block wx:for="{{swpstkRules}}">
+        <view class="weui-article__p">{{index + 1}}. {{item}}</view>
+      </block>
+    </view>
+  </dialog>
+</view>
 
 <block wx:if="{{viewState === 0}}">
   <view class="weui-loadmore">
@@ -38,3 +48,10 @@
     </view>
   </view>
 </block>
+
+<view class="weui-footer">
+  <view class="weui-footer__links">
+    <text bindtap="handleOpenDialog" class="weui-footer__link">查看规则</text>
+  </view>
+  <view class="weui-footer__text">develop @shesl-meow</view>
+</view>

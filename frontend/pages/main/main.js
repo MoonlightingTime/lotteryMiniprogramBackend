@@ -12,6 +12,8 @@ Page({
   data: {
     sweepstakes: [],
     backend: "",
+    dialogVisible: true,
+    swpstkRules: ["需要关注公众号"],
     viewState: viewState.waitRequest
   },
 
@@ -71,6 +73,22 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  handleCloseDialog: function () {
+    wx.showToast({
+      title: "已经了解",
+      icon: "none"
+    });
+    this.setData({
+      dialogVisible: false
+    })
+  },
+
+  handleOpenDialog: function () {
+    this.setData({
+      dialogVisible: true
+    })
   },
 
   // TODO: 从后端获得所有的抽奖信息
