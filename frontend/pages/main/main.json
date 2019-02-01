@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "dialog": "/components/dialog"
+  },
   "backgroundColor": "#112238"
 }

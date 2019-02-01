@@ -76,7 +76,10 @@ Page({
 
   tryQuery: function (tryTimes = 0) {
     var self = this;
-    if (self.data.openid !== undefined) {this.queryResult(); return true;}
+    if (self.data.openid !== undefined) {
+      this.queryResult();
+      return true;
+    }
     ++tryTimes < 6 ? (function () {
       console.log(`Openid is undefine, waiting ${tryTimes} second`);
       setTimeout(function () {

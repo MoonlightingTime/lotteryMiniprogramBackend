@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/main/main",
     "pages/profile/profile",
     "pages/result/result",
-    "pages/main/main",
     "pages/main/participate"
   ],
   "window": {
