@@ -23,6 +23,7 @@ Rem : following command is core code.
 %python% manage.py makemigrations sweepstake
 %python% manage.py makemigrations wx_user
 %python% manage.py makemigrations participate
+%python% manage.py makemigrations swpstk_rule
 
 %python% manage.py migrate
 Rem : end of core code

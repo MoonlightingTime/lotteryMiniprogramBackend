@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'wx_user.apps.WxUserConfig',
     'sweepstake.apps.SweepstakeConfig',
     'participate.apps.ParticipateConfig',
+    'swpstk_rule.apps.SwpstkRuleConfig',
 ]
 
 MIDDLEWARE = [
