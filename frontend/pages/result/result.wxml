@@ -2,7 +2,7 @@
 <import src="./template/sweepstakesResult.wxml" />
 
 <view class="weui-panel">
-  <view class="weui-panel__hd">我参与的抽奖</view>
+  <view class="weui-panel__hd">参与的抽奖</view>
   <block wx:if="{{viewState === 0}}">
     <view class="weui-loadmore">
       <view class="weui-loading"></view>

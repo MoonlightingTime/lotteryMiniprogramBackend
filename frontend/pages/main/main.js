@@ -10,10 +10,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dialogVisible: true,
+    swpstkRules: [],
+    dialogState: viewState.waitRequest,
+
     sweepstakes: [],
     backend: "",
-    dialogVisible: true,
-    swpstkRules: ["需要关注公众号"],
     viewState: viewState.waitRequest
   },
 
@@ -23,7 +25,8 @@ Page({
   onLoad: function (options) {
     var app = getApp();
     this.data.backend = app.globalData.backend;
-    this.getSwpstkInfo();
+    setTimeout(this.getSwpstkRules, 0);
+    setTimeout(this.getSwpstkInfo, 0);
   },
 
   /**
@@ -80,14 +83,53 @@ Page({
       title: "已经了解",
       icon: "none"
     });
-    this.setData({
-      dialogVisible: false
-    })
   },
 
   handleOpenDialog: function () {
+    this.getSwpstkRules();
     this.setData({
       dialogVisible: true
+    });
+  },
+
+  // TODO: 从后端获得所有的抽奖规则信息
+  getSwpstkRules: function () {
+    var self = this;
+    wx.request({
+      url: `${self.data.backend}/swpstk_rule/query_rules`,
+      success: self.ruleSuccessCallBack,
+      fail: self.ruleFailCallBack
+    })
+  },
+
+  ruleSuccessCallBack: function (res) {
+    console.log(res);
+    var self = this;
+
+    if (res.data.code === 0){
+      self.setData({
+        swpstkRules: [],
+        dialogState: viewState.successRequest
+      });
+      res.data.data.forEach(function (item, index) {
+        var wxcnm = `swpstkRules[${index}]`;
+        self.setData({
+          [wxcnm]: item
+        })
+      })
+    } else {
+      self.setData({
+        dialogState: viewState.failRequest,
+        dialogErrMsg: res.errMsg
+      })
+    }
+  },
+
+  ruleFailCallBack: function (res) {
+    console.log(res);
+    this.setData({
+      dialogState: viewState.failRequest,
+      dialogErrMsg: res.errMsg
     })
   },
 
@@ -127,7 +169,7 @@ Page({
     console.log(res);
     this.setData({
       viewState: viewState.failRequest,
-      errMsg: res.errMsg
+      infoErrMsg: res.errMsg
     })
   },
   

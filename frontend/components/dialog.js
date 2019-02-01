@@ -12,10 +12,11 @@ Component({
       observer: function (newVal) {
         if (newVal) {
           this.triggerEvent('open');
-          wx.pageScrollTo({
-            scrollTop: 0,
-            duration: 100
-          })
+          // TODO: 被 @shesl-meow 注释
+          // wx.pageScrollTo({
+          //   scrollTop: 0,
+          //   duration: 100
+          // })
         }
       }
     },
