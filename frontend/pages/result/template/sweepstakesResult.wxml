@@ -6,7 +6,7 @@
     </view>
     <view class="weui-cell_primary">
       <view wx:if="{{swpstkState == 'notTime'}}" style="color:#d8e0c9">请稍等，尚未开奖</view>
-      <view wx:elif="{{swpstkState == 'hasWon'}}" style="color:#ea5037">恭喜您，您已中奖</view>
+      <view wx:elif="{{swpstkState == 'hasWon'}}" style="color:#ea5037">恭喜您，您已中奖: {{specificResult}}</view>
       <view wx:elif="{{swpstkState == 'notWon'}}" style="color:#112338">很遗憾，您未中奖</view>
     </view>
     <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
