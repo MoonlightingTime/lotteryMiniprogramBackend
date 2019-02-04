@@ -64,7 +64,7 @@ App({
 
   globalData: {
     userInfo: {},
-    backend: "https://miniprogram.huaweixiaozhu.com"
-    // backend: "http://localhost:8000"
+    // backend: "https://miniprogram.huaweixiaozhu.com"
+    backend: "http://localhost:8000"
   }
 });
