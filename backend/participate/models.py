@@ -19,8 +19,8 @@ class Participate(models.Model):
         (0, "firstPrize"), (1, "secondPrize"),
         (2, "thirdPrize"), (3, "luckyPrize")
     )
-    specificResult =models.CharField(
-        max_length=16, null=True, blank=True, choices=resultChoice)
+    specificResult =models.IntegerField(
+        null=True, blank=True, choices=resultChoice)
 
     class Meta:
         """
