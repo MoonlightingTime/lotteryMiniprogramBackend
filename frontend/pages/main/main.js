@@ -157,7 +157,8 @@ Page({
       item.luckyPrize.loadImage = true;
 
       var lotteryDataTime = new Date(item.lotteryTime);
-      item.lotteryTime = `${lotteryDataTime.toDateString()}\n${lotteryDataTime.toTimeString()}`;
+      item.lotteryTime = `${lotteryDataTime.getFullYear()}-${lotteryDataTime.getMonth()}-${lotteryDataTime.getDate()}` +
+        ` ${lotteryDataTime.getHours()}:${lotteryDataTime.getMinutes()}:${lotteryDataTime.getSeconds()}`;
       item.maxPrizeValue = Math.max(item.firstPrize.prizeValue, item.secondPrize.prizeValue,
           item.thirdPrize.prizeValue, item.luckyPrize.prizeValue);
 
