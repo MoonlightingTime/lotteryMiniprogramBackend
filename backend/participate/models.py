@@ -15,6 +15,13 @@ class Participate(models.Model):
                       "`Yes` stands for having won lottery / `Yes` 表示已经中奖;<br />"
                       "`No` stands for having not won lottery. / `No` 表示没有中奖")
 
+    resultChoice = (
+        (0, "firstPrize"), (1, "secondPrize"),
+        (2, "thirdPrize"), (3, "luckyPrize")
+    )
+    specificResult =models.IntegerField(
+        null=True, blank=True, choices=resultChoice)
+
     class Meta:
         """
         partWxUser&partSweepstake is a union key

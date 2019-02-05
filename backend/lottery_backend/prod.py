@@ -1,3 +1,5 @@
+import os
+
 from .settings import *
 
 DEBUG = False
@@ -9,7 +11,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/www/lotteryMiniprogram/backend/web_debug.log',
+            'filename': os.path.join(parent_dir, 'web_error.log'),
         },
     },
     'loggers': {

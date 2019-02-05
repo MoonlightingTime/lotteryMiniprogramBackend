@@ -10,6 +10,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dialogVisible: true,
+    swpstkRules: [],
+    dialogState: viewState.waitRequest,
+
     sweepstakes: [],
     backend: "",
     viewState: viewState.waitRequest
@@ -21,7 +25,8 @@ Page({
   onLoad: function (options) {
     var app = getApp();
     this.data.backend = app.globalData.backend;
-    this.getSwpstkInfo();
+    setTimeout(this.getSwpstkRules, 0);
+    setTimeout(this.getSwpstkInfo, 0);
   },
 
   /**
@@ -73,6 +78,61 @@ Page({
 
   },
 
+  handleCloseDialog: function () {
+    wx.showToast({
+      title: "已经了解",
+      icon: "none"
+    });
+  },
+
+  handleOpenDialog: function () {
+    this.getSwpstkRules();
+    this.setData({
+      dialogVisible: true
+    });
+  },
+
+  // TODO: 从后端获得所有的抽奖规则信息
+  getSwpstkRules: function () {
+    var self = this;
+    wx.request({
+      url: `${self.data.backend}/swpstk_rule/query_rules`,
+      success: self.ruleSuccessCallBack,
+      fail: self.ruleFailCallBack
+    })
+  },
+
+  ruleSuccessCallBack: function (res) {
+    console.log(res);
+    var self = this;
+
+    if (res.data.code === 0){
+      self.setData({
+        swpstkRules: [],
+        dialogState: viewState.successRequest
+      });
+      res.data.data.forEach(function (item, index) {
+        var wxcnm = `swpstkRules[${index}]`;
+        self.setData({
+          [wxcnm]: item
+        })
+      })
+    } else {
+      self.setData({
+        dialogState: viewState.failRequest,
+        dialogErrMsg: res.errMsg
+      })
+    }
+  },
+
+  ruleFailCallBack: function (res) {
+    console.log(res);
+    this.setData({
+      dialogState: viewState.failRequest,
+      dialogErrMsg: res.errMsg
+    })
+  },
+
   // TODO: 从后端获得所有的抽奖信息
   getSwpstkInfo: function () {
     var self = this;
@@ -91,9 +151,16 @@ Page({
       sweepstakes: []
     });
     res.data.data.forEach(function (item, index) {
-      item.loadImage = true;
+      item.firstPrize.loadImage = true;
+      item.secondPrize.loadImage = true;
+      item.thirdPrize.loadImage = true;
+      item.luckyPrize.loadImage = true;
+
       var lotteryDataTime = new Date(item.lotteryTime);
-      item.lotteryTime = `${lotteryDataTime.toDateString()}\n${lotteryDataTime.toTimeString()}`;
+      item.lotteryTime = `${lotteryDataTime.getFullYear()}-${lotteryDataTime.getMonth()}-${lotteryDataTime.getDate()}` +
+        ` ${lotteryDataTime.getHours()}:${lotteryDataTime.getMinutes()}:${lotteryDataTime.getSeconds()}`;
+      item.maxPrizeValue = Math.max(item.firstPrize.prizeValue, item.secondPrize.prizeValue,
+          item.thirdPrize.prizeValue, item.luckyPrize.prizeValue);
 
       console.log(item);
       self.data.sweepstakes.push(item);
@@ -109,22 +176,52 @@ Page({
     console.log(res);
     this.setData({
       viewState: viewState.failRequest,
-      errMsg: res.errMsg
+      infoErrMsg: res.errMsg
     })
   },
   
   loadSwpStkImage: function (num) {
     var self = this;
-    wx.downloadFile({
-      url: `${self.data.backend}/images/${this.data.sweepstakes[num].demoImage}`,
+    setTimeout(function () { wx.downloadFile({
+      url: `${self.data.backend}/images/${self.data.sweepstakes[num].firstPrize.demoImage}`,
       success: res => {
         console.log(res);
-        self.data.sweepstakes[num].loadImage = false;
-        self.data.sweepstakes[num].demoImage = res.tempFilePath;
+        self.data.sweepstakes[num].firstPrize.loadImage = false;
+        self.data.sweepstakes[num].firstPrize.demoImage = res.tempFilePath;
         var cnmwx = `sweepstakes[${num}]`;
-        this.setData({[cnmwx]: self.data.sweepstakes[num]});
+        self.setData({[cnmwx]: self.data.sweepstakes[num]});
       }
-    })
+    }) }, 0);
+    setTimeout(function () { wx.downloadFile({
+      url: `${self.data.backend}/images/${self.data.sweepstakes[num].secondPrize.demoImage}`,
+      success: res => {
+        console.log(res);
+        self.data.sweepstakes[num].secondPrize.loadImage = false;
+        self.data.sweepstakes[num].secondPrize.demoImage = res.tempFilePath;
+        var cnmwx = `sweepstakes[${num}]`;
+        self.setData({[cnmwx]: self.data.sweepstakes[num]});
+      }
+    }) }, 0);
+    setTimeout(function () { wx.downloadFile({
+      url: `${self.data.backend}/images/${self.data.sweepstakes[num].thirdPrize.demoImage}`,
+      success: res => {
+        console.log(res);
+        self.data.sweepstakes[num].thirdPrize.loadImage = false;
+        self.data.sweepstakes[num].thirdPrize.demoImage = res.tempFilePath;
+        var cnmwx = `sweepstakes[${num}]`;
+        self.setData({[cnmwx]: self.data.sweepstakes[num]});
+      }
+    }) }, 0);
+    setTimeout(function () { wx.downloadFile({
+      url: `${self.data.backend}/images/${self.data.sweepstakes[num].luckyPrize.demoImage}`,
+      success: res => {
+        console.log(res);
+        self.data.sweepstakes[num].luckyPrize.loadImage = false;
+        self.data.sweepstakes[num].luckyPrize.demoImage = res.tempFilePath;
+        var cnmwx = `sweepstakes[${num}]`;
+        self.setData({[cnmwx]: self.data.sweepstakes[num]});
+      }
+    }) }, 0);
   },
 
   participateInSwpstk: function (swpstkId) {

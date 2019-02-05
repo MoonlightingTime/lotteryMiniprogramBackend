@@ -23,4 +23,5 @@ urlpatterns = [
     path('wx_user/', include('wx_user.urls')),
     path('sweepstake/', include('sweepstake.urls')),
     path('participate/', include('participate.urls')),
+    path('swpstk_rule/', include('swpstk_rule.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
