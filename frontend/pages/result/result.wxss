@@ -1,4 +1,0 @@
-/* pages/result/result.wxss */
-.weui-btn-area{
-    background-color: #d8e0c9;
-}
